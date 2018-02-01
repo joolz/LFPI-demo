@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:portal="http://liferay.com/faces/portal"
+	xmlns:dlwo="http://xmlns.jcp.org/jsf/composite/components/common">
+
+	<h:head />
+
+	<h:body class="message-page-container">
+
+		<div id="content-info">
+			<h:outputText styleClass="ui-message-warn"
+				value="#{i18n['message-info-new-message']}" escape="false" />
+		</div>
+
+
+		<h:form id="addform" class="announcements__add">
+
+			<h:panelGroup id="addpanelgroup">
+
+				<ui:include src="include/editfields.xhtml">
+					<ui:param name="bean" value="#{authorAddBean}" />
+				</ui:include>
+
+				<div id="content-bottom-actions">
+					<p:commandLink id="ann-publish" type="button" styleClass="btn blue"
+						update="@form" action="#{authorAddBean.doAdd}"
+						value="#{i18n['publish']}">
+					</p:commandLink>
+					<h:link type="button" styleClass="btn" outcome="browse"
+						value="#{i18n['cancel']}" />
+				</div>
+
+			</h:panelGroup>
+
+		</h:form>
+
+	</h:body>
+
+</f:view>

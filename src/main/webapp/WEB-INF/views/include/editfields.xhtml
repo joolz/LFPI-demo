@@ -1,0 +1,160 @@
+<?xml version="1.0"?>
+<!--
+Copyright 2016 Open Universiteit, yOUlearn
+
+This program is free software: you can redistribute it and/or modify 
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:portal="http://liferay.com/faces/portal"
+	xmlns:dlwo="http://xmlns.jcp.org/jsf/composite/components/common">
+
+	<dlwo:fieldset label="#{i18n['announcement-targets']}"
+		tooltipEnabled="false" group="true" styleClass="message-targets">
+		<f:event type="postValidate" listener="#{bean.validateRoles}" />
+
+		<h:panelGroup id="rolesAndTeamsWrapper" layout="block">
+
+			<p:selectOneMenu id="som_options" value="#{bean.selectedOption}">
+				<f:selectItems value="#{bean.filterOptions}" />
+				<p:ajax partialSubmit="true" update="rolesAndTeamsWrapper" />
+			</p:selectOneMenu>
+			<h:message id="optionmsg" for="som_options" styleClass="dlwo-message" />
+
+			<br />
+			<div class="message-container">
+				<p:selectManyCheckbox id="teams" value="#{bean.selectedTeams}"
+					layout="responsive" columns="1" immediate="true">
+					<f:selectItems value="#{bean.selectableTeams}" var="team"
+						itemLabel="#{team.name}" itemValue="#{team.roleId}" />
+					<p:ajax partialSubmit="true" />
+				</p:selectManyCheckbox>
+				<h:message id="teamsmsg" for="teams" styleClass="dlwo-message" />
+			</div>
+			<br />
+
+			<ui:fragment
+				rendered="#{bean.selectableRoles.size() > 0 and bean.selectedOption.equals('roles')}">
+				<br />
+				<div class="message-container">
+					<p:selectManyCheckbox id="roles" value="#{bean.selectedRoles}"
+						immediate="true" layout="responsive" columns="1">
+						<f:selectItems value="#{bean.selectableRoles}" var="role"
+							itemLabel="#{role.name}" itemValue="#{role.roleId}" />
+						<p:ajax partialSubmit="true" />
+					</p:selectManyCheckbox>
+				</div>
+				<h:message id="rolesmsg" for="roles" styleClass="dlwo-message" />
+			</ui:fragment>
+
+		</h:panelGroup>
+	</dlwo:fieldset>
+	<br />
+
+	<dlwo:field label="#{i18n['title']}" required="true"
+		tooltipEnabled="false">
+		<p:inputText id="title" required="true" value="title"
+			requiredMessage="#{i18n['announcement-this-field-is-required']}"
+			placeholder="#{i18n['placeholder-announcement-title']}"
+			styleClass="large" maxlength="75" />
+		<h:message for="title" styleClass="dlwo-message" />
+	</dlwo:field>
+
+<!-- 	<dlwo:field label="#{i18n['announcement-text']}" tooltipEnabled="false"
+		required="true"> -->
+		<portal:inputRichText id="announcementtext"
+			value="some rich text"
+			defaultValue="some default rich text" required="true"
+			inlineMessage="true"
+			requiredMessage="#{i18n['this-field-is-required']}" />
+		<h:message for="announcementtext" styleClass="dlwo-message" />
+<!-- 	</dlwo:field> -->
+
+	<dlwo:field label="#{i18n['announcement-category']}"
+		tooltipEnabled="true" tooltip="#{i18n['tooltip-category']}"
+		rendered="#{bean.selectableCategories.size() > 1}">
+		<p:selectOneMenu id="category" appendTo="@(this)">
+			<f:selectItems value="#{bean.selectableCategories}"
+				itemLabelEscaped="true" />
+		</p:selectOneMenu>
+	</dlwo:field>
+
+	<dlwo:field label="#{i18n['publication-moment']} "
+		tooltip="#{i18n['tooltip-publication-date']}">
+		<f:event type="postValidate" listener="#{bean.validate}" />
+
+		<p:selectOneRadio id="pubmoment" value="#{bean.publicationMoment}"
+			layout="pageDirection" styleClass="cp-item-visibility">
+			<p:ajax update=":#{p:component('publicationDatePanel')}"
+				process="@this :#{p:component('publicationDatePanel')}" />
+			<f:selectItems value="#{bean.publicationMomentOptions}"
+				itemLabelEscaped="true" />
+		</p:selectOneRadio>
+
+		<h:panelGroup id="publicationDatePanel"
+			styleClass="publication-date-panel">
+			<ui:fragment rendered="#{bean.publicationMoment eq 3}">
+				<p:calendar id="pubdate"
+					mode="popup"
+					pattern="#{i18n['format-timestamp-pattern']}"
+					locale="#{liferay.themeDisplay.locale}"
+					label="#{i18n['publication-date']}"
+					converterMessage="#{i18n['date-format-invalid'].concat(' ').concat(i18n['format-short-date-pattern'])}"
+					timeControlType="select" />
+				<h:message id="publicationdatemsg" for="pubdate"
+					styleClass="dlwo-message" />
+			</ui:fragment>
+		</h:panelGroup>
+
+		<br />
+		<br />
+		<span class="field-label">#{i18n['expiration-moment']} <h:outputText
+				id="em_icon" class="tooltip-anchor icon icon-question-sign"
+				title="#{i18n['tooltip-expiration-moment']}" /> <p:tooltip
+				for="em_icon" />
+		</span>
+
+		<p:selectOneRadio id="expmoment" value="#{bean.expirationMoment}"
+			layout="pageDirection" styleClass="cp-item-visibility">
+			<p:ajax update=":#{p:component('expirationDatePanel')}"
+				process="@this :#{p:component('expirationDatePanel')}" />
+			<f:selectItems value="#{bean.expirationMomentOptions}"
+				itemLabelEscaped="true" />
+		</p:selectOneRadio>
+
+		<h:panelGroup id="expirationDatePanel"
+			styleClass="expiration-date-panel">
+			<ui:fragment rendered="#{bean.expirationMoment eq 'date'}">
+				<p:calendar id="expdate" 
+					mode="popup" pattern="#{i18n['format-timestamp-pattern']}"
+					locale="#{liferay.themeDisplay.locale}"
+					label="#{i18n['expiration-date']}"
+					converterMessage="#{i18n['date-format-invalid'].concat(' ').concat(i18n['format-short-date-pattern'])}"
+					timeControlType="select" />
+				<h:message id="expirationdatemsg" for="expdate"
+					styleClass="dlwo-message" />
+			</ui:fragment>
+		</h:panelGroup>
+	</dlwo:field>
+
+	<dlwo:field label="#{i18n['urgent-message']}" tooltipEnabled="true"
+		tooltip="#{i18n['tooltip-urgent']}">
+		<p:selectBooleanCheckbox />
+	</dlwo:field>
+
+</ui:composition>

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright (C) 2017 Open Universiteit Nederland
+  
+  This library is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Lesser General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+  
+  This library is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU Lesser General Public License for more details.
+  
+  You should have received a copy of the GNU Lesser General Public License
+  along with this library.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:cc="http://xmlns.jcp.org/jsf/composite">
+
+	<cc:interface>
+		<cc:attribute name="announcementId" required="true"
+			type="java.lang.Long" />
+		<cc:attribute name="collapsed" default="false" required="false"
+			type="java.lang.Boolean" />
+		<cc:attribute name="showLastEditDate" default="false" required="false"
+			type="java.lang.Boolean" />
+		<cc:attribute name="showPublicationDate" default="false" required="false"
+			type="java.lang.Boolean" />
+	</cc:interface>
+
+	<cc:implementation>
+	
+		<f:event type="preRenderView"
+			listener="#{historyBean.init(cc.attrs.announcementId)}" />
+
+		<ui:fragment rendered="#{!empty historyBean.history}">
+
+			<!-- two fragments to work around activeIndex behaviour -->
+			<ui:fragment rendered="#{cc.attrs.collapsed}">
+				<p:accordionPanel activeIndex="-1">
+					<p:tab>
+						<f:facet name="title">
+							<span class="">#{i18n['announcement-history']}</span>
+							<span class="v-divider pad-l pad-r">|</span>
+							<span class="info-text">
+								<h:outputText value="#{historyBean.numberOfEventsLabel}" />
+							</span>
+						</f:facet>
+
+						<ul>
+							<ui:repeat value="#{historyBean.history}" var="event">
+								<li>
+
+									<ui:fragment rendered="#{cc.attrs.showLastEditDate}">
+										<span class="info-text">
+
+											<h:outputText value="#{i18n['created-by']} #{event.authorName} #{i18n['updated-on']} "
+												rendered="#{event.first}" />
+
+											<h:outputText value="#{i18n['updated-by']} #{event.authorName} #{i18n['updated-on']} "
+												rendered="#{not event.first}" />
+
+											<h:outputText value="#{event.lastEditDate}">
+												<f:convertDateTime pattern="#{i18n['format-timestamp-pattern']}" />
+											</h:outputText>
+										</span>
+									</ui:fragment>
+
+									<ui:fragment rendered="#{cc.attrs.showPublicationDate}">
+										<span class="info-text">
+											<h:outputText value=" | " rendered="#{cc.attrs.showLastEditDate}" />
+											<h:outputText value="#{i18n['published-on-date']} "/>
+											<h:outputText value="#{event.publicationDate}">
+												<f:convertDateTime pattern="#{i18n['format-timestamp-pattern']}" />
+											</h:outputText>
+										</span>
+									</ui:fragment>
+
+									<div>
+										<strong><h:outputText value="#{event.title}" /></strong>
+									</div>
+									<div>
+										<h:outputText value="#{event.text}" escape="false" />
+									</div>
+								</li>
+							</ui:repeat>
+						</ul>
+					</p:tab>
+				</p:accordionPanel>
+			</ui:fragment>
+
+			<ui:fragment rendered="#{not cc.attrs.collapsed}">
+				<p:accordionPanel>
+					<p:tab>
+						<f:facet name="title">
+							<span class="">#{i18n['announcement-history']}</span>
+							<span class="v-divider pad-l pad-r">|</span>
+							<span class="info-text">
+								<h:outputText value="#{historyBean.numberOfEventsLabel}" />
+							</span>
+						</f:facet>
+
+						<ul>
+							<ui:repeat value="#{historyBean.history}" var="event">
+								<li>
+
+									<ui:fragment rendered="#{cc.attrs.showLastEditDate}">
+										<span class="info-text">
+
+											<h:outputText value="#{i18n['created-by']} #{event.authorName} #{i18n['updated-on']} "
+												rendered="#{event.first}" />
+
+											<h:outputText value="#{i18n['updated-by']} #{event.authorName} #{i18n['updated-on']} "
+												rendered="#{not event.first}" />
+
+											<h:outputText value="#{event.lastEditDate}">
+												<f:convertDateTime pattern="#{i18n['format-timestamp-pattern']}" />
+											</h:outputText>
+										</span>
+									</ui:fragment>
+
+									<ui:fragment rendered="#{cc.attrs.showPublicationDate}">
+										<span class="info-text">
+											<h:outputText value=" | " rendered="#{cc.attrs.showLastEditDate}" />
+											<h:outputText value="#{i18n['published-on-date']} "/>
+											<h:outputText value="#{event.publicationDate}">
+												<f:convertDateTime pattern="#{i18n['format-timestamp-pattern']}" />
+											</h:outputText>
+										</span>
+									</ui:fragment>
+
+									<div>
+										<strong><h:outputText value="#{event.title}" /></strong>
+									</div>
+									<div class="announcement-history-body">
+										<h:outputText value="#{event.text}" escape="false" />
+									</div>
+								</li>
+							</ui:repeat>
+						</ul>
+					</p:tab>
+				</p:accordionPanel>
+			</ui:fragment>
+
+		</ui:fragment>
+
+	</cc:implementation>
+
+</ui:component>

@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:portal="http://liferay.com/faces/portal"
+	xmlns:dlwo="http://xmlns.jcp.org/jsf/composite/components/common">
+
+    <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://xmlns.jcp.org/jsf/core"
+    	xmlns:h="http://xmlns.jcp.org/jsf/html"	xmlns:portal="http://liferay.com/faces/portal">
+     
+    	<h:outputStylesheet library="css" name="input-rich-text.css" />
+    	<h:form id="exampleForm">
+    		<h:message id="commentsMessage" for="comments" />
+    		<!-- Note: In this example, portal:inputRichText is intentionally not a child of showcase:field in order -->
+    		<!-- to prevent it from being unnecessarily reinitialized when the showcase:field is re-rendered via Ajax. -->
+    		<portal:inputRichText id="comments" label="#{i18n['comments']}"
+    			required="#{showcaseModelBean.selectedComponent.required}"
+    			value="#{inputRichTextBacking.applicant.comments}" />
+    		<h:commandButton actionListener="#{inputRichTextBacking.submit}" value="#{i18n['submit']}">
+    			<f:ajax execute="@form" render="commentsField :modelValue" />
+    		</h:commandButton>
+    	</h:form>
+    	<h:outputText id="modelValue" value="#{inputRichTextBacking.applicant.comments}" />
+     
+    </ui:composition>
+ 
+</f:view>

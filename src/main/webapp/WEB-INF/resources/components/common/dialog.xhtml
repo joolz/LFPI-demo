@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright (C) 2013 Open Universiteit Nederland
+  
+  This library is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Lesser General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+  
+  This library is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU Lesser General Public License for more details.
+  
+  You should have received a copy of the GNU Lesser General Public License
+  along with this library.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<ui:component xmlns:alloy="http://liferay.com/faces/alloy" xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.w3.org/1999/xhtml http://www.w3.org/2002/08/xhtml/xhtml1-transitional.xsd">
+
+	<cc:interface>
+		<cc:attribute name="fnName" required="true" />
+		<cc:attribute name="url"  required="true" />
+		<cc:attribute name="title" required="true" />
+		<cc:attribute name="width" required="true" />
+	</cc:interface>
+
+	<cc:implementation>
+		<alloy:outputScript>
+			Liferay.provide(
+				window,
+				'#{cc.attrs.fnName}',
+				function() {
+					var instance = this;
+
+					var url='#{cc.attrs.url}';
+
+						Liferay.Util.openWindow(
+						{
+							cache: false,
+							dialog: {
+								align: Liferay.Util.Window.ALIGN_CENTER,
+								after: {
+									render: function(event) {
+										this.set('y', this.get('y') + 50);
+									}
+								},
+								width: '#{cc.attrs.width}'
+							},
+							dialogIframe: {
+								id: '#{cc.attrs.clientId}_siteManagementIframe',
+								uri: url
+							},
+							title: '#{cc.attrs.title}',
+							uri: url
+						}
+					);
+				},
+			['liferay-util-window']
+		);
+		</alloy:outputScript>
+	</cc:implementation>
+
+</ui:component>

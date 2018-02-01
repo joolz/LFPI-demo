@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright (C) 2013 Open Universiteit Nederland
+  
+  This library is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Lesser General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+  
+  This library is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU Lesser General Public License for more details.
+  
+  You should have received a copy of the GNU Lesser General Public License
+  along with this library.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+	xmlns:p="http://primefaces.org/ui">
+
+	<cc:interface>
+		<cc:attribute name="label" required="true" type="java.lang.String" />
+		<cc:attribute name="required" default="false" required="false" type="java.lang.Boolean" />
+		<cc:attribute name="tooltip" required="false" type="java.lang.String" />
+		<cc:attribute name="tooltipEnabled" default="true" required="false"
+			type="java.lang.Boolean" />
+	</cc:interface>
+
+	<cc:implementation>
+
+		<div class="form-inline-field">
+			<cc:insertChildren />
+			<span class="inline-field-label">
+				#{cc.attrs.label} <ui:fragment rendered="#{cc.attrs.required}">* </ui:fragment><ui:fragment rendered="#{cc.attrs.tooltipEnabled}">
+					<h:outputText id="tt_icon"
+						class="tooltip-anchor icon icon-question-sign"
+						title="#{cc.attrs.tooltip}" />
+					<p:tooltip for="tt_icon" />
+				</ui:fragment>
+			</span>
+		</div>
+
+	</cc:implementation>
+
+</ui:component>

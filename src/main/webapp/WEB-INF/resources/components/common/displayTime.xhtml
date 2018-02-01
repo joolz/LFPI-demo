@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright (C) 2013 Open Universiteit Nederland
+  
+  This library is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Lesser General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+  
+  This library is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU Lesser General Public License for more details.
+  
+  You should have received a copy of the GNU Lesser General Public License
+  along with this library.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:cc="http://xmlns.jcp.org/jsf/composite">
+
+	<cc:interface>
+		<cc:attribute name="duration" default="Duration in milliseconds"
+			required="true" type="java.lang.Long" />
+	</cc:interface>
+
+	<cc:implementation>
+		<c:set var="sec" value="#{(cc.attrs.duration/1000) mod 60}" />
+		<c:set var="min" value="#{((cc.attrs.duration/1000 - sec)/60) mod 60}" />
+		<c:set var="hours" value="#{((cc.attrs.duration/1000/60 - min)/60)}" />
+		<h:outputText value="#{hours}">
+			<f:convertNumber minIntegerDigits="2" integerOnly="true" maxFractionDigits="0" />
+		</h:outputText>
+		<h:outputText value=":" />
+		<h:outputText value="#{min}">
+			<f:convertNumber minIntegerDigits="2" integerOnly="true" maxFractionDigits="0" />
+		</h:outputText>
+		<h:outputText value=":" />
+		<h:outputText value="#{sec}">
+			<f:convertNumber minIntegerDigits="2" /> <!-- minFractionDigits="2" maxFractionDigits="2"  -->
+		</h:outputText>
+	</cc:implementation>
+
+</ui:component>
