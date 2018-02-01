@@ -1,0 +1,42 @@
+Uncaught ReferenceError: LFPI is not defined
+    at _LFPIdemo_WAR_LFPIdemo__addform_announcementtextInit (<anonymous>:1:65)
+    at a (<anonymous>:17:197)
+    at d.<anonymous> (<anonymous>:30:444)
+    at d.h (VM54 ckeditor.js?browserId=other&minifierType=js&languageId=en_US&b=7010&t=1517407941892:6)
+    at d.<anonymous> (VM54 ckeditor.js?browserId=other&minifierType=js&languageId=en_US&b=7010&t=1517407941892:7)
+    at d.window.CKEDITOR.window.CKEDITOR.dom.CKEDITOR.editor.CKEDITOR.editor.fire (VM54 ckeditor.js?browserId=other&minifierType=js&languageId=en_US&b=7010&t=1517407941892:9)
+    at d.fireOnce (VM54 ckeditor.js?browserId=other&minifierType=js&languageId=en_US&b=7010&t=1517407941892:8)
+    at d.window.CKEDITOR.window.CKEDITOR.dom.CKEDITOR.editor.CKEDITOR.editor.fireOnce (VM54 ckeditor.js?browserId=other&minifierType=js&languageId=en_US&b=7010&t=1517407941892:9)
+    at d.<anonymous> (VM54 ckeditor.js?browserId=other&minifierType=js&languageId=en_US&b=7010&t=1517407941892:315)
+    at VM54 ckeditor.js?browserId=other&minifierType=js&languageId=en_US&b=7010&t=1517407941892:321
+_LFPIdemo_WAR_LFPIdemo__addform_announcementtextInit @ VM114:1
+a @ VM124:17
+(anonymous) @ VM124:30
+h @ ckeditor.js?browserId=other&minifierType=js&languageId=en_US&b=7010&t=1517407941892:6
+(anonymous) @ ckeditor.js?browserId=other&minifierType=js&languageId=en_US&b=7010&t=1517407941892:7
+window.CKEDITOR.window.CKEDITOR.dom.CKEDITOR.editor.CKEDITOR.editor.fire @ ckeditor.js?browserId=other&minifierType=js&languageId=en_US&b=7010&t=1517407941892:9
+fireOnce @ ckeditor.js?browserId=other&minifierType=js&languageId=en_US&b=7010&t=1517407941892:8
+window.CKEDITOR.window.CKEDITOR.dom.CKEDITOR.editor.CKEDITOR.editor.fireOnce @ ckeditor.js?browserId=other&minifierType=js&languageId=en_US&b=7010&t=1517407941892:9
+(anonymous) @ ckeditor.js?browserId=other&minifierType=js&languageId=en_US&b=7010&t=1517407941892:315
+(anonymous) @ ckeditor.js?browserId=other&minifierType=js&languageId=en_US&b=7010&t=1517407941892:321
+setTimeout (async)
+(anonymous) @ ckeditor.js?browserId=other&minifierType=js&languageId=en_US&b=7010&t=1517407941892:321
+(anonymous) @ ckeditor.js?browserId=other&minifierType=js&languageId=en_US&b=7010&t=1517407941892:250
+e.(anonymous function) @ ckeditor.js?browserId=other&minifierType=js&languageId=en_US&b=7010&t=1517407941892:6
+h @ ckeditor.js?browserId=other&minifierType=js&languageId=en_US&b=7010&t=1517407941892:6
+(anonymous) @ ckeditor.js?browserId=other&minifierType=js&languageId=en_US&b=7010&t=1517407941892:7
+window.CKEDITOR.window.CKEDITOR.dom.CKEDITOR.editor.CKEDITOR.editor.fire @ ckeditor.js?browserId=other&minifierType=js&languageId=en_US&b=7010&t=1517407941892:9
+(anonymous) @ ckeditor.js?browserId=other&minifierType=js&languageId=en_US&b=7010&t=1517407941892:1040
+setTimeout (async)
+(anonymous) @ ckeditor.js?browserId=other&minifierType=js&languageId=en_US&b=7010&t=1517407941892:1040
+(anonymous) @ ckeditor.js?browserId=other&minifierType=js&languageId=en_US&b=7010&t=1517407941892:22
+setTimeout (async)
+setTimeout @ ckeditor.js?browserId=other&minifierType=js&languageId=en_US&b=7010&t=1517407941892:22
+d @ ckeditor.js?browserId=other&minifierType=js&languageId=en_US&b=7010&t=1517407941892:1039
+(anonymous) @ ckeditor.js?browserId=other&minifierType=js&languageId=en_US&b=7010&t=1517407941892:22
+setTimeout (async)
+setTimeout @ ckeditor.js?browserId=other&minifierType=js&languageId=en_US&b=7010&t=1517407941892:22
+(anonymous) @ ckeditor.js?browserId=other&minifierType=js&languageId=en_US&b=7010&t=1517407941892:1045
+(anonymous) @ ckeditor.js?browserId=other&minifierType=js&languageId=en_US&b=7010&t=1517407941892:25
+callFunction @ ckeditor.js?browserId=other&minifierType=js&languageId=en_US&b=7010&t=1517407941892:25
+onload @ VM140 lfpi-demo:1
