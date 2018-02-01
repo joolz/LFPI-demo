@@ -6,4 +6,5 @@ See http://www.liferayfaces.org/web/guest/portal-showcase/-/portal-tag/portal/in
 When loading the page this error occurs:
 Uncaught ReferenceError: LFPI is not defined
 
+Resulting html is in resultingHtml.html
 Full error in error.txt
